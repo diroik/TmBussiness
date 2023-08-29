@@ -1,0 +1,74 @@
+﻿
+<div style="margin-top:30px;width:100%;">
+    <table id="jqGrid5"></table>
+    <div id="jqGridPager5"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#jqGrid5").jqGrid({
+            regional: 'ru',
+            url: '@Url.Action("GetAsduTM5Data","Home")',
+            mtype: "GET",
+            datatype: "json",
+            loadonce: true,
+            colModel: [
+                { label: 'Дата производства', name: 'dateStamp' },
+                { label: 'Серийный №', name: 'asduPartNumber' },
+                { label: 'МАС-lan', name: 'mac1char' },
+            ],
+            viewrecords: true,
+            autowidth: true,
+            shrinkToFit: true,
+            rownumbers: true, // show row numbers
+            height: 500,
+            rowNum: 100,
+            rowList: [50, 100, 500, 1000],
+            altRows: true,
+            pager: "#jqGridPager5",
+        });
+        // add navigation bar with some built in actions for the grid
+        $('#jqGrid5').navGrid('#jqGridPager5',
+            {
+                edit: false,
+                add: false,
+                del: false,
+                search: true,
+                refresh: true,
+                searchtext: "Найти",
+                refreshtext: "Обновить",
+                view: true,
+                position: "left",
+                //cloneToTop: false,
+                closeAfterSearch: true
+            });
+        $('#jqGrid5').navButtonAdd('#jqGridPager5',
+            {
+                buttonicon: "ui-icon-save",
+                title: "Export to Excel",
+                caption: "Excel",
+                position: "last",
+                onClickButton: excelButtonClicked5
+            });
+    });
+
+    function excelButtonClicked5(e) {
+        var options = {
+            includeLabels: true,
+            includeGroupHeader: true,
+            includeFooter: true,
+            includeHeader: true,
+            fileName: "ASDU_TM-5_Export.xlsx",
+            mimetype: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            maxlength: 40,
+            onBeforeExport: null,
+            replaceStr: null,
+            customizeData: null,
+            loadIndicator: true,
+            visibleTreeNodes: false,
+            treeindent: ' '
+        };
+
+        $("#jqGrid5").jqGrid('exportToExcel', options);
+    }
+</script>

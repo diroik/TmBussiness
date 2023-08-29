@@ -1,0 +1,75 @@
+﻿
+<div style="margin-top:30px;width:100%;">
+    <table id="jqGrid4"></table>
+    <div id="jqGridPager4"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+            $("#jqGrid4").jqGrid({
+                regional: 'ru',
+                url: '@Url.Action("GetAsduTM4Data","Home")',
+                mtype: "GET",
+                datatype: "json",
+                loadonce: true,
+                colModel: [
+                    { label: 'Дата производства', name: 'dateStamp' },
+                    { label: 'Серийный №', name: 'asduPartNumber' },
+                    { label: 'МАС-lan', name: 'mac1char' },
+                    { label: 'МАС-wan', name: 'mac2char' }
+                ],
+                viewrecords: true,
+                autowidth: true,
+                shrinkToFit: true,
+                rownumbers: true, // show row numbers
+                height: 500,
+                rowNum: 100,
+                rowList: [50, 100, 500, 1000],
+                altRows: true,
+                pager: "#jqGridPager4",
+            });
+            // add navigation bar with some built in actions for the grid
+            $('#jqGrid4').navGrid('#jqGridPager4',
+                {
+                    edit: false,
+                    add: false,
+                    del: false,
+                    search: true,
+                    refresh: true,
+                    searchtext: "Найти",
+                    refreshtext: "Обновить",
+                    view: true,
+                    position: "left",
+                    //cloneToTop: false,
+                    closeAfterSearch: true
+                });
+            $('#jqGrid4').navButtonAdd('#jqGridPager4',
+                {
+                    buttonicon: "ui-icon-save",
+                    title: "Export to Excel",
+                    caption: "Excel",
+                    position: "last",
+                    onClickButton: excelButtonClicked4
+                });
+    });
+
+        function excelButtonClicked4(e) {
+            var options = {
+                includeLabels: true,
+                includeGroupHeader: true,
+                includeFooter: true,
+                includeHeader: true,
+                fileName: "ASDU_TM-4_Export.xlsx",
+                mimetype: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                maxlength: 40,
+                onBeforeExport: null,
+                replaceStr: null,
+                customizeData: null,
+                loadIndicator: true,
+                visibleTreeNodes: false,
+                treeindent: ' '
+            };
+
+            $("#jqGrid4").jqGrid('exportToExcel', options);
+        }
+</script>

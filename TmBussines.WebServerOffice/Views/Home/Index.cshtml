@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Оборудование";
+}
+
+@section Scripts {
+    <script>
+	    $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+
+
+
+    </script>
+}
+<div class="tab-content" style="padding-top:50px">
+
+
+    <div role="tabpanel" class="tab-pane active" id="home-tab-1">
+        @{
+            await Html.RenderPartialAsync("_GsmM_Partial");//_AsduMini_Partial
+        }</div>
+    <div role="tabpanel" class="tab-pane" id="home-tab-2">
+        @{
+            await Html.RenderPartialAsync("_AsduMini_Partial");//_GsmM_Partial
+        }</div>
+    <div role="tabpanel" class="tab-pane" id="home-tab-3">
+        @{
+            await Html.RenderPartialAsync("_AsduTM3_Partial");
+        }</div>
+    <div role="tabpanel" class="tab-pane" id="home-tab-4">
+        @{
+            await Html.RenderPartialAsync("_AsduTM4_Partial");
+        }</div>
+    <div role="tabpanel" class="tab-pane" id="home-tab-5">
+        @{
+            await Html.RenderPartialAsync("_AsduTM5_Partial");
+        }
+    </div>
+
+
+</div>
