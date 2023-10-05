@@ -110,6 +110,7 @@ namespace TmBussines.WebServerOffice.Controllers
                 {
                     s.dev.DateStamp,
                     s.dev.AsduPartNumber,
+                    s.dev.MkddPartNumber,
                     s.core.Mac1char
                 })
                 .OrderBy(o => o.DateStamp)
